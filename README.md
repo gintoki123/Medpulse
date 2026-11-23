@@ -1,99 +1,91 @@
-# MediPulse 2.0: Advanced AI Healthcare Companion
+<div align="center">
 
-## Project Overview
+<img src="assets/medipulse-icon.png" alt="MediPulse logo" width="96" />
 
-**MediPulse 2.0** is an advanced, AI-powered healthcare companion designed to provide users with quick, accurate, and helpful health-related information. It features a chat interface for health Q&A, integrated health tools (like a BMI calculator and water tracker), and a focus on user privacy by storing data locally.
+# MediPulse 2.0
 
-This project was developed as a demonstration of modern front-end web development combined with powerful external Language Model APIs.
+**An AI healthcare companion in the browser, with voice interaction**
+
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
+![LLM API](https://img.shields.io/badge/LLM-OpenRouter_API-6E56CF?style=flat-square)
+![Status](https://img.shields.io/badge/status-graduation_project-0A7E8C?style=flat-square)
+
+</div>
+
+---
+
+## Overview
+
+MediPulse answers health questions in plain language, explains symptoms, and bundles everyday wellness tools in one clean interface. It talks back to the user with text-to-speech, supports more than one language, and keeps all personal data in the browser (no backend, no database).
+
+Built as a graduation project for the **Software Engineering Department, Near East University**.
 
 ## Features
 
-*   **AI-Powered Chat:** Instant answers to health queries using a large language model.
-*   **Integrated Health Tools:** BMI Calculator, Water Intake Tracker, Health Tips, First Aid instructions, and a Symptom Checker.
-*   **User Interface:** Clean, responsive design with dark mode and sound toggles.
-*   **Local Storage:** User settings and chat history are stored locally in the browser for privacy.
+| Area | What it does |
+|---|---|
+| **AI health chat** | Health Q&A through a large language model, with built-in medical disclaimers |
+| **Voice** | Speak your question (speech recognition) and hear the answer (text-to-speech) |
+| **Symptom checker** | Pick symptoms, get possible conditions and next-step recommendations |
+| **First aid** | Step-by-step guides: CPR, choking, burns, fractures, stroke, heart attack, and more |
+| **Trackers** | Water intake, sleep, mood, habits, vital signs, pain, medication |
+| **Calculators & tools** | BMI, nutrition, drug interaction info, medical terms, exercise, meditation, breathing |
+| **Export** | Save a conversation as a PDF |
+| **Personalization** | Dark mode, font size, sound toggle, multi-language interface |
+| **Privacy** | Chat history and settings are stored only in the browser's local storage |
 
-## Technologies Used
+## Tech stack
 
-*   **Frontend:** HTML5, CSS3, JavaScript (ES6+)
-*   **Styling:** Custom CSS (`css/style.css`)
-*   **External API:** OpenRouter (using an OpenAI-compatible endpoint) for the core AI functionality.
+- **Frontend:** HTML5, CSS3, vanilla JavaScript (ES6+)
+- **AI:** OpenRouter chat-completions API (OpenAI-compatible)
+- **Browser APIs:** Web Speech (recognition + synthesis), Local Storage
 
-## Setup and Installation
-
-Follow these steps to get a copy of the project up and running on your local machine.
-
-### 1. Clone the Repository
-
-If you are using Git, clone the repository to your local machine:
+## Getting started
 
 ```bash
-git clone [YOUR_REPOSITORY_URL]
-cd medipulse_project
+git clone https://github.com/gintoki123/Medpulse.git
+cd Medpulse
 ```
 
-If you received the project as a ZIP file, simply extract the contents to a folder named `medipulse_project`.
+**1. Add your API key** (the app needs it for the chat):
 
-### 2. API Key Configuration
+```bash
+cp js/config.example.js js/config.js
+```
 
-The application requires an API key to function. We have configured the project to use the **OpenRouter API** due to its reliability and compatibility.
+Open `js/config.js` and paste your own key from [openrouter.ai/keys](https://openrouter.ai/keys).
+`js/config.js` is git-ignored, so the key stays on your machine.
 
-1.  **Get an OpenRouter API Key:** Sign up for an account on [OpenRouter](https://openrouter.ai/) and generate a new API key.
-2.  **Update `script.js`:** Open the file `js/script.js` in a text editor.
-3.  Locate the following lines (around line 31) and replace the placeholder key with your actual OpenRouter API key:
+**2. Run a local server** (needed for the API calls):
 
-    ```javascript
-    // js/script.js
-    const API_KEY = "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"; // REPLACE THIS WITH YOUR KEY
-    const API_URL = "https://openrouter.ai/api/v1/chat/completions";
-    ```
+```bash
+python3 -m http.server 8000
+```
 
-    *Note: The key provided above is a placeholder and will not work. You must use your own valid key.*
+Then open <http://localhost:8000>. The VS Code *Live Server* extension works too.
 
-### 3. How to Run the Project (Required for University Submission)
-
-Since this is a static web application, you must run it using a local web server to ensure all files (especially the JavaScript API calls) load correctly.
-
-#### Option A: Using VS Code Live Server (Recommended)
-
-1.  Install the **Live Server** extension by Ritwick Dey in Visual Studio Code.
-2.  Right-click on the `index.html` file.
-3.  Select **"Open with Live Server"**.
-4.  Your default browser will open the application at a local address (e.g., `http://127.0.0.1:5500/index.html`).
-
-#### Option B: Using Python's Simple HTTP Server
-
-If you do not use VS Code, you can use Python's built-in web server:
-
-1.  Open your terminal or command prompt.
-2.  Navigate to the project directory: `cd medipulse_project`
-3.  Run the server command:
-    ```bash
-    python3 -m http.server 8000
-    ```
-4.  Open your web browser and navigate to: `http://localhost:8000`
-
-## Project Structure
-
-The project follows a standard structure for a simple web application:
+## Project structure
 
 ```
-medipulse_project/
-├── index.html          # Main application file
-├── README.md           # This file
-├── css/
-│   └── style.css       # All custom styles
+Medpulse/
+├── index.html                # App shell and all tool modals
+├── css/style.css             # Styles, light and dark themes
 ├── js/
-│   ├── script.js       # Core application logic and API calls
-│   ├── api_optimizations.js
-│   ├── text_to_speech.js
-│   ├── pdf_export.js
-│   └── language_support.js
-└── assets/
-    ├── medipulse-icon.png
-    └── robot-icon.png
+│   ├── script.js             # Chat logic, tools and API calls
+│   ├── api_optimizations.js  # Prompt tuning (concise mode, formatting)
+│   ├── text_to_speech.js     # Voice output
+│   ├── pdf_export.js         # Export chat to PDF
+│   ├── language_support.js   # Interface translations
+│   └── config.example.js     # API key template (copy to config.js)
+└── assets/                   # Icons
 ```
 
 ## Disclaimer
 
-MediPulse is not a substitute for professional medical advice, diagnosis, or treatment.** Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition. The information provided by this application is for informational purposes only.
+MediPulse provides general health information for educational purposes only. It is **not** a substitute for professional medical advice, diagnosis or treatment. Always consult a qualified healthcare provider.
+
+## Author
+
+**Bilal Boulaalam** · [GitHub](https://github.com/gintoki123)

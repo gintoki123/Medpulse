@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediPulse - Advanced Healthcare Companion</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="assets/medipulse-icon.png" type="image/png">
+</head>
+<body>
+    <div class="chat-container">
+        <header>
+            <div class="logo-container">
+                <img src="assets/medipulse-icon.png" alt="MediPulse Logo" class="bot-icon">
+                <h1>MediPulse</h1>
+            </div>
+            <div class="header-controls">
+                <button id="sound-toggle" title="Toggle sound" class="sound-toggle">
+                    <i class="fas fa-volume-up"></i>
+                </button>
+                <button id="theme-toggle" title="Toggle theme" class="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button id="menu-button" title="Menu" class="menu-button">
+                    <i class="fas fa-ellipsis-vertical"></i>
+                </button>
+            </div>
+        </header>
+
+        <div id="dropdown-menu" class="dropdown-menu">
+            <div class="dropdown-item" id="toggle-tools">
+                <i class="fas fa-toolbox"></i> Health Tools
+            </div>
+            <div class="dropdown-item" id="open-dashboard">
+                <i class="fas fa-chart-line"></i> Health Dashboard
+            </div>
+            <div class="dropdown-item" id="download-report">
+                <i class="fas fa-file-pdf"></i> Download Report
+            </div>
+            <div class="dropdown-item" id="open-settings">
+                <i class="fas fa-gear"></i> Settings
+            </div>
+            <div class="dropdown-item" id="clear-history">
+                <i class="fas fa-trash"></i> Clear Chat History
+            </div>
+            <div class="dropdown-item" id="about-app">
+                <i class="fas fa-circle-info"></i> About MediPulse
+            </div>
+        </div>
+
+        <div id="chat-box" class="chat-box">
+            <!-- Chat messages will appear here -->
+        </div>
+
+        <div id="tools-panel" class="tools-panel">
+            <div class="tools-section">
+                <h3>Health Tracking</h3>
+                <div class="tools-grid">
+                    <button class="tool-button" data-tool="bmi">
+                        <i class="fas fa-weight"></i>
+                        BMI Calculator
+                    </button>
+                    <button class="tool-button" data-tool="water">
+                        <i class="fas fa-droplet"></i>
+                        Water Tracker
+                    </button>
+                    <button class="tool-button" data-tool="vitals">
+                        <i class="fas fa-heart-pulse"></i>
+                        Vital Signs
+                    </button>
+                    <button class="tool-button" data-tool="sleep">
+                        <i class="fas fa-moon"></i>
+                        Sleep Tracker
+                    </button>
+                    <button class="tool-button" data-tool="mood">
+                        <i class="fas fa-face-smile"></i>
+                        Mood Tracker
+                    </button>
+                    <button class="tool-button new-feature" data-tool="pain">
+                        <i class="fas fa-bolt"></i>
+                        Pain Journal
+                        <span class="new-badge">New</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="tools-section">
+                <h3>Medical Resources</h3>
+                <div class="tools-grid">
+                    <button class="tool-button" data-tool="symptoms">
+                        <i class="fas fa-stethoscope"></i>
+                        Symptom Checker
+                    </button>
+                    <button class="tool-button" data-tool="firstaid">
+                        <i class="fas fa-kit-medical"></i>
+                        First Aid
+                    </button>
+                    <button class="tool-button" data-tool="medication">
+                        <i class="fas fa-pills"></i>
+                        Medications
+                    </button>
+                    <button class="tool-button" data-tool="healthtip">
+                        <i class="fas fa-lightbulb"></i>
+                        Health Tips
+                    </button>
+                    <button class="tool-button new-feature" data-tool="druginteraction">
+                        <i class="fas fa-prescription-bottle-medical"></i>
+                        Drug Interactions
+                        <span class="new-badge">New</span>
+                    </button>
+                    <button class="tool-button new-feature" data-tool="medterms">
+                        <i class="fas fa-book-medical"></i>
+                        Medical Terms
+                        <span class="new-badge">New</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="tools-section">
+                <h3>Wellness</h3>
+                <div class="tools-grid">
+                    <button class="tool-button" data-tool="meditation">
+                        <i class="fas fa-om"></i>
+                        Meditation
+                    </button>
+                    <button class="tool-button" data-tool="exercise">
+                        <i class="fas fa-dumbbell"></i>
+                        Exercise
+                    </button>
+                    <button class="tool-button" data-tool="nutrition">
+                        <i class="fas fa-apple-whole"></i>
+                        Nutrition
+                    </button>
+                    <button class="tool-button new-feature" data-tool="breathing">
+                        <i class="fas fa-wind"></i>
+                        Breathing
+                        <span class="new-badge">New</span>
+                    </button>
+                    <button class="tool-button new-feature" data-tool="gratitude">
+                        <i class="fas fa-heart"></i>
+                        Gratitude
+                        <span class="new-badge">New</span>
+                    </button>
+                    <button class="tool-button new-feature" data-tool="habits">
+                        <i class="fas fa-calendar-check"></i>
+                        Habit Builder
+                        <span class="new-badge">New</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Voice Control Button -->
+        <div id="voice-control" class="voice-control-btn">
+            <i class="fas fa-microphone"></i>
+        </div>
+
+        <div class="input-area">
+            <input type="text" id="user-input" placeholder="Ask MediPulse anything about your health...">
+            <button id="send-button">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- BMI Calculator Modal -->
+    <div id="bmi-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 class="modal-title"><i class="fas fa-weight"></i> BMI Calculator</h2>
+            <div class="form-group">
+                <label for="height">Height (cm)</label>
+                <input type="number" id="height" min="50" max="250" placeholder="Enter your height">
+            </div>
+            <div class="form-group">
+                <label for="weight">Weight (kg)</label>
+                <input type="number" id="weight" min="20" max="500" placeholder="Enter your weight">
+            </div>
+            <button id="calculate-bmi" class="form-submit">Calculate BMI</button>
+            
+            <div id="bmi-result" class="result-display" style="display: none;">
+                <div class="result-value" id="bmi-value">25.0</div>
+                <div class="result-message" id="bmi-message">Your BMI indicates you are in the normal weight range.</div>
+                
+                <div class="bmi-chart">
+                    <div class="bmi-scale">
+                        <div class="bmi-category underweight">Underweight</div>
+                        <div class="bmi-category normal">Normal</div>
+                        <div class="bmi-category overweight">Overweight</div>
+                        <div class="bmi-category obese">Obese</div>
+                    </div>
+                    <div class="bmi-marker" id="bmi-marker"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Water Intake Modal -->
+    <div id="water-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 class="modal-title"><i class="fas fa-droplet"></i> Water Intake Tracker</h2>
+            
+            <div class="water-progress">
+                <h3>Today's Progress: <span id="water-amount">0</span> / <span id="water-goal">2500</span> ml</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="water-progress-fill"></div>
+                </div>
+            </div>
+            
+            <div class="water-controls">
+                <button class="water-btn" data-amount="250"><i class="fas fa-glass-water"></i> 250ml</button>
+                <button class="water-btn" data-amount="500"><i class="fas fa-bottle-water"></i> 500ml</button>
+                <button class="water-btn" data-amount="-250"><i class="fas fa-minus"></i> Remove 250ml</button>
+            </div>
+            
+            <div class="form-group">
+                <label for="water-goal-input">Daily Water Goal (ml)</label>
+                <input type="number" id="water-goal-input" min="500" max="5000" step="100" value="2500">
+            </div>
+            <button id="update-water-goal" class="form-submit">Update Goal</button>
+        </div>
+    </div>
+
+    <!-- Health Tip Modal -->
+    <div id="healthtip-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 class="modal-title"><i class="fas fa-lightbulb"></i> Daily Health Tips</h2>
+            
+            <div class="health-tip">
+                <h3 id="tip-title">Healthy Eating Tip</h3>
+                <p id="tip-content">Include a variety of colorful fruits and vegetables in your diet to ensure you're getting a wide range of nutrients and antioxidants.</p>
+            </div>
+            
+            <div class="tip-categories">
+                <button class="tip-category-btn active" data-category="all">All Tips</button>
+                <button class="tip-category-btn" data-category="nutrition">Nutrition</button>
+                <button class="tip-category-btn" data-category="fitness">Fitness</button>
+                <button class="tip-category-btn" data-category="mental">Mental Health</button>
+                <button class="tip-category-btn" data-category="sleep">Sleep</button>
+                <button class="tip-category-btn" data-category="prevention">Prevention</button>
+            </div>
+            
+            <button id="new-tip" class="form-submit">Get New Tip</button>
+        </div>
+    </div>
+
+    <!-- First Aid Modal -->
+    <div id="firstaid-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 class="modal-title"><i class="fas fa-kit-medical"></i> First Aid Instructions</h2>
+            
+            <div class="form-group">
+                <label for="firstaid-search">Search Emergency Situations</label>
+                <input type="text" id="firstaid-search" placeholder="e.g., burns, choking, cuts...">
+            </div>
+            
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="common">Common</button>
+                <button class="tab-btn" data-tab="emergency">Emergency</button>
+                <button class="tab-btn" data-tab="injuries">Injuries</button>
+            </div>
+            
+            <div id="firstaid-common" class="tab-content active">
+                <div class="first-aid-cards">
+                    <div class="first-aid-card" data-aid="cuts">
+                        <h3>Cuts & Scrapes</h3>
+                        <p>Minor wound care</p>
+                    </div>
+                    <div class="first-aid-card" data-aid="burns">
+                        <h3>Burns</h3>
+                        <p>First & second degree</p>
+                    </div>
+                    <div class="first-aid-card" data-aid="sprains">
+                        <h3>Sprains</h3>
+                        <p>RICE method</p>
+                    </div>
+                    <div class="first-aid-card" data-aid="splinters">
+                        <h3>Splinters</h3>
+                        <p>Safe removal</p>
+                    </div>
+                    <div class="first-aid-card" data-aid="nosebleed">
+                        <h3>Nosebleeds</h3>
+                        <p>Stop bleeding</p>
+                    </div>
+                    <div class="first-aid-card" data-aid="insect">
+                        <h3>Insect Bites</h3>
+                        <p>Relief & treatment</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="firstaid-emergency" class="tab-content">
+                <div class="first-aid-cards">
+                    <div class="first-aid-card" data-aid="choking">
+                        <h3>Choking</h3>
+                        <p>Heimlich maneuver</p>
+                    </div>
+                    <div class="first-aid-card" data-aid="cpr">
+                        <h3>CPR</h3>
+                        <p>Basic steps</p>
+                    </div>
+                    <div class="first-aid-card" data-aid="stroke">
+                        <h3>Stroke</h3>
+                        <p>FAST method</p>
+                    </div>
+                    <div class="first-aid-card" data-aid="heartattack">
+                        <h3>Heart Attack</h3>
+                        <p>Warning signs</p>
+                    </div>
+                    <div class="first-aid-card" data-aid="seizure">
+                        <h3>Seizures</h3>
+                        <p>Safe response</p>
+                    </div>
+                    <div class="first-aid-card" data-aid="allergic">
+                        <h3>Allergic Reaction</h3>
+                        <p>Emergency steps</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="firstaid-injuries" class="tab-content">
+                <div class="first-aid-cards">
+                    <div class="first-aid-card" data-aid="fracture">
+                        <h3>Fractures</h3>
+                        <p>Immobilization</p>
+                    </div>
+                    <div class="first-aid-card" data-aid="head">
+                        <h3>Head Injury</h3>
+                        <p>Concussion signs</p>
+                    </div>
+                    <div class="first-aid-card" data-aid="eye">
+                        <h3>Eye Injuries</h3>
+                        <p>Foreign objects</p>
+                    </div>
+                    <div class="first-aid-card" data-aid="electrical">
+                        <h3>Electrical</h3>
+                        <p>Shock treatment</p>
+                    </div>
+                    <div class="first-aid-card" data-aid="drowning">
+                        <h3>Drowning</h3>
+                        <p>Water rescue</p>
+                    </div>
+                    <div class="first-aid-card" data-aid="poison">
+                        <h3>Poisoning</h3>
+                        <p>Emergency steps</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="firstaid-details" class="tab-content" style="display: none;">
+                <button id="back-to-firstaid" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Categories</button>
+                <h3 id="firstaid-title">First Aid Instructions</h3>
+                <div id="firstaid-instructions" class="instructions-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Symptom Checker Modal -->
+    <div id="symptoms-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 class="modal-title"><i class="fas fa-stethoscope"></i> Symptom Checker</h2>
+            
+            <div class="form-group">
+                <label for="symptom-search">Search Symptoms</label>
+                <input type="text" id="symptom-search" placeholder="e.g., headache, fever, cough...">
+            </div>
+            
+            <div class="symptom-selection">
+                <h3>Common Symptoms</h3>
+                <div class="symptom-grid">
+                    <div class="symptom-item" data-symptom="headache">Headache</div>
+                    <div class="symptom-item" data-symptom="fever">Fever</div>
+                    <div class="symptom-item" data-symptom="cough">Cough</div>
+                    <div class="symptom-item" data-symptom="sore throat">Sore Throat</div>
+                    <div class="symptom-item" data-symptom="fatigue">Fatigue</div>
+                    <div class="symptom-item" data-symptom="nausea">Nausea</div>
+                    <div class="symptom-item" data-symptom="dizziness">Dizziness</div>
+                    <div class="symptom-item" data-symptom="shortness of breath">Shortness of Breath</div>
+                    <div class="symptom-item" data-symptom="chest pain">Chest Pain</div>
+                    <div class="symptom-item" data-symptom="abdominal pain">Abdominal Pain</div>
+                    <div class="symptom-item" data-symptom="rash">Rash</div>
+                    <div class="symptom-item" data-symptom="joint pain">Joint Pain</div>
+                </div>
+                
+                <h3>Selected Symptoms</h3>
+                <div id="selected-symptoms" class="selected-symptoms"></div>
+                
+                <button id="check-symptoms" class="form-submit">Check Symptoms</button>
+            </div>
+            
+            <div id="symptom-results" class="symptom-results" style="display: none;">
+                <h3>Possible Conditions</h3>
+                <p class="disclaimer">This is not a diagnosis. Consult a healthcare provider for proper evaluation.</p>
+                <div id="condition-list" class="condition-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mood Tracker Modal -->
+    <div id="mood-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 class="modal-title"><i class="fas fa-face-smile"></i> Mood Tracker</h2>
+            
+            <div class="mood-selection">
+                <h3>How are you feeling today?</h3>
+                <div class="mood-grid">
+                    <div class="mood-item" data-mood="great">
+                        <i class="fas fa-face-laugh-beam"></i>
+                        <span>Great</span>
+                    </div>
+                    <div class="mood-item" data-mood="good">
+                        <i class="fas fa-face-smile"></i>
+                        <span>Good</span>
+                    </div>
+                    <div class="mood-item" data-mood="okay">
+                        <i class="fas fa-face-meh"></i>
+                        <span>Okay</span>
+                    </div>
+                    <div class="mood-item" data-mood="bad">
+                        <i class="fas fa-face-frown"></i>
+                        <span>Bad</span>
+                    </div>
+                    <div class="mood-item" data-mood="awful">
+                        <i class="fas fa-face-sad-tear"></i>
+                        <span>Awful</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="mood-notes">Notes (optional)</label>
+                <textarea id="mood-notes" placeholder="What's affecting your mood today?"></textarea>
+            </div>
+            
+            <div class="mood-factors">
+                <h3>Factors (select all that apply)</h3>
+                <div class="factors-grid">
+                    <div class="factor-item" data-factor="sleep">Sleep</div>
+                    <div class="factor-item" data-factor="stress">Stress</div>
+                    <div class="factor-item" data-factor="exercise">Exercise</div>
+                    <div class="factor-item" data-factor="diet">Diet</div>
+                    <div class="factor-item" data-factor="social">Social</div>
+                    <div class="factor-item" data-factor="work">Work</div>
+                    <div class="factor-item" data-factor="health">Health</div>
+                    <div class="factor-item" data-factor="weather">Weather</div>
+                </div>
+            </div>
+            
+            <button id="save-mood" class="form-submit">Save Mood</button>
+            
+            <div class="mood-history">
+                <h3>Mood History</h3>
+                <div class="mood-chart" id="mood-chart">
+                    <!-- Mood chart will be rendered here -->
+                    <div class="placeholder-chart">Your mood history will appear here after logging entries.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sleep Tracker Modal -->
+    <div id="sleep-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 class="modal-title"><i class="fas fa-moon"></i> Sleep Tracker</h2>
+            
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="log">Log Sleep</button>
+                <button class="tab-btn" data-tab="history">Sleep History</button>
+                <button class="tab-btn" data-tab="insights">Insights</button>
+            </div>
+            
+            <div id="sleep-log" class="tab-content active">
+                <div class="form-group">
+                    <label for="sleep-date">Date</label>
+                    <input type="date" id="sleep-date">
+                </div>
+                
+                <div class="time-inputs">
+                    <div class="form-group">
+                        <label for="sleep-time">Bedtime</label>
+                        <input type="time" id="sleep-time">
+                    </div>
+                    <div class="form-group">
+                        <label for="wake-time">Wake Time</label>
+                        <input type="time" id="wake-time">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="sleep-quality">Sleep Quality</label>
+                    <div class="rating">
+                        <i class="far fa-star" data-rating="1"></i>
+                        <i class="far fa-star" data-rating="2"></i>
+                        <i class="far fa-star" data-rating="3"></i>
+                        <i class="far fa-star" data-rating="4"></i>
+                        <i class="far fa-star" data-rating="5"></i>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="sleep-notes">Notes (optional)</label>
+                    <textarea id="sleep-notes" placeholder="Any factors affecting your sleep?"></textarea>
+                </div>
+                
+                <button id="save-sleep" class="form-submit">Save Sleep Data</button>
+            </div>
+            
+            <div id="sleep-history" class="tab-content">
+                <div class="sleep-chart" id="sleep-chart">
+                    <!-- Sleep chart will be rendered here -->
+                    <div class="placeholder-chart">Your sleep history will appear here after logging entries.</div>
+                </div>
+                
+                <div class="sleep-entries" id="sleep-entries">
+                    <!-- Sleep entries will be listed here -->
+                </div>
+            </div>
+            
+            <div id="sleep-insights" class="tab-content">
+                <div class="insight-card">
+                    <h3>Average Sleep Duration</h3>
+                    <div class="insight-value" id="avg-sleep-duration">-- hrs</div>
+                </div>
+                
+                <div class="insight-card">
+                    <h3>Average Sleep Quality</h3>
+                    <div class="insight-value" id="avg-sleep-quality">--</div>
+                </div>
+                
+                <div class="insight-card">
+                    <h3>Most Common Bedtime</h3>
+                    <div class="insight-value" id="common-bedtime">--:--</div>
+                </div>
+                
+                <div class="insight-recommendations">
+                    <h3>Recommendations</h3>
+                    <ul id="sleep-recommendations">
+                        <li>Log more sleep data to receive personalized recommendations.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 class="modal-title"><i class="fas fa-gear"></i> Settings</h2>
+            
+            <div class="settings-group">
+                <h3>Appearance</h3>
+                <div class="toggle-container">
+                    <label class="toggle">
+                        <input type="checkbox" id="dark-mode-toggle">
+                        <span class="toggle-slider"></span>
+                    </label>
+                    <span>Dark Mode</span>
+                </div>
+            </div>
+            
+            <div class="settings-group">
+                <h3>Sound</h3>
+                <div class="toggle-container">
+                    <label class="toggle">
+                        <input type="checkbox" id="sound-effects-toggle" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                    <span>Sound Effects</span>
+                </div>
+            </div>
+            
+            <div class="settings-group">
+                <h3>Data</h3>
+                <div class="toggle-container">
+                    <label class="toggle">
+                        <input type="checkbox" id="save-history-toggle" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                    <span>Save Chat History</span>
+                </div>
+            </div>
+            
+            <div class="settings-group">
+                <h3>Font Size</h3>
+                <div class="font-size-controls">
+                    <button id="decrease-font" class="size-btn"><i class="fas fa-minus"></i></button>
+                    <span id="font-size-value">100%</span>
+                    <button id="increase-font" class="size-btn"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+            
+            <button id="clear-all-data" class="danger-btn">Clear All Data</button>
+        </div>
+    </div>
+
+    <!-- About Modal -->
+    <div id="about-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 class="modal-title"><i class="fas fa-circle-info"></i> About MediPulse</h2>
+            
+            <div class="about-content">
+                <img src="assets/medipulse-icon.png" alt="MediPulse Logo" class="about-logo">
+                <h3>MediPulse 2.0</h3>
+                <p>Your advanced AI healthcare companion</p>
+                
+                <div class="about-section">
+                    <h4>Features</h4>
+                    <ul>
+                        <li>AI-powered health Q&A</li>
+                        <li>Health tracking tools</li>
+                        <li>Medical resources</li>
+                        <li>Wellness guides</li>
+                        <li>Voice control</li>
+                    </ul>
+                </div>
+                
+                <div class="about-section">
+                    <h4>Privacy</h4>
+                    <p>MediPulse stores all your data locally on your device. No personal health information is transmitted to external servers.</p>
+                </div>
+                
+                <div class="about-section">
+                    <h4>Disclaimer</h4>
+                    <p>MediPulse is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.</p>
+                </div>
+                
+                <div class="about-section">
+                    <h4>Credits</h4>
+                    <p>Powered by Google's Gemini API</p>
+                    <p>© 2025 MediPulse Health Technologies</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main JavaScript -->
+    <script src="js/config.js"></script>
+    <script src="js/script.js"></script>
+    <!-- New Feature Scripts -->
+    <script src="js/api_optimizations.js"></script>
+    <script src="js/text_to_speech.js"></script>
+    <script src="js/pdf_export.js"></script>
+    <script src="js/language_support.js"></script>
+</body>
+</html>
