@@ -1,0 +1,8 @@
+# Local secrets - never commit
+js/config.js
+.env
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
